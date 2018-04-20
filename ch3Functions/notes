@@ -1,0 +1,41 @@
+to formally specify a mathematical function, 
+you need to provide the domain and the codomain
+as well as the formula to use
+
+similaly, in C++ function
+gives the name of the function 
+describes the type of data it can be applied to 
+the type of data it returns
+specifies the actual formulate needed for the function.
+
+recursion
+library
+
+declare first, and  define later. functions
+
+put all your function declarations before the first definition, 
+declare the most interesting functions first, so that someone reading your file can quickly understand the intention of the code.
+
+??? Resist the urge to try and reorder functions so that the code compiles without the need for separate declarations.
+
+
+default value of a parameter of a function
+overloading functions: same function name, but take different numbers or types of parameters, order does not matter, 
+the identify of a function is determined by both its name and the types of parameters,
+this combination is called the signature of the function.
+
+global and local variables
+the scope of a variable refers to the parts of code where that variable can be used.
+in C++ the curly brackets determine the scope of a variable. 
+
+avoid global variables other than constants
+when writing programs you should try to divide things into small independent pieces
+using global variables prevents these pieces being truly independent.
+
+multi-threaded code: code execute more than one function simultaneously.
+If you use global variables in multi-threaded code you can have a situation where two
+bits of code are trying to change the same variables at the same time. This is
+called a race condition. To prevent this happening, you need to use a technique
+called locking. 
+
+namespaces

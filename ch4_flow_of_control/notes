@@ -1,0 +1,50 @@
+decision : if else
+perform a task repeatedly: while, for, do while
+
+<initialise loop variables>;
+while (<test loop variables>) {
+	<perform main steps of code>
+	<update loop variables>
+}
+
+for (<initialise loop variables>; <test loop variables>; <update loop variables>) {
+	<perform main steps of code>
+}
+
+break : jump out of the loop
+continue : skip the rest of the code in the body of the loop, continue looping
+return : 
+
+throw : when you want a function to stop abruptly and indicate an error has occured.
+
+#include<stdexcept>
+
+double debitAccount(double balance, double amount){
+	double newAmount = balance - amount;
+	if (newAmount < 0.0){
+		throw logic_error("No overdraft agreed");
+	}
+	return newAmount;
+}
+
+it is much better for a program to throw an error and terminate than for it to print out an error message and try to struggle on.
+
+reason:
+nobody is reading the message. a lot of the code used in finance is running on servers and not on the user's computer. if you write a message to the log file of a server, then the chances are that no one will ever read it.
+
+it is better to fail obviously than to fail subtly. 
+
+if an error is thrown immediatedly it is easy to see what error occurred and what was happening when the error occurred. if you look at a log file a day later, you may have no way of working out what was happening. 
+
+switch
+
+scope:
+if you define a variable within curly brackets, it can only be used within those brackets. once the execution of the program leaves the brackets, the variable is deleted.  the part of the code in which you can refer to a variable is called the scope of the variable.
+
+the scope of variables is used to control the use of memory in C++. 
+when variables go out of scope, the memory can be safely reused.
+
+a technical point is that certain operators in C++ actually control the flow of the program in subtle ways.
+short circuit evaluation: flase && what ever ==> false ; true || whatever ==> true
+the ternary operator: a short cut for writing if statements : <test expression> ? <value if ture> : <value if false> 
+comma operator: The formal definition of the comma operator is that the expression lhs,␣rhs evaluates lhs and discards the result and then evaluates rhs.

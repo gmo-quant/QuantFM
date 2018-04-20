@@ -1,0 +1,85 @@
+c++ is statically typed language, 
+that is you must specify the type of a data that will be stored in that variable, 
+and you can't change its type.
+
+memory terminology
++++++++++++++++++++++++++++
+binary digit
+8 bit = 1 byte
+1024 bytes = 1 kilobyte (2^10)
+1048576 bytes = 1 megabyte ( 2^20 )
+
+use hexidecimal numbers to represent memory location
+hexidecimal : base 16 
+one hexidecimal digit is called a nibble.
+
+basic data types{
+	integers : when you divide two integers in c++, it rounds down if necessary.
+	{
+		[unsigned] {short, int, long, long long}, size_t 
+	}
+	floating point numbers
+	{
+		float, double, long double,
+	}
+	boolean
+	characters
+	{
+		ASCII maps hexidecimal character codes to visible character codes
+		char takes up exactly one byte. 
+	}
+
+	pointer: memory address
+	{
+		pointers are only an appropriate tool for solving problems involving direct memory access
+		a memory address is stored in C or C++ using a pointer data type.
+		a pointer to a memory location containing a 'type'
+
+		in c++ , use
+		#include<string>
+		using namespace std;
+		string speech = "To be or not to be?";
+
+		instead of 
+		const char* speech = "string";
+
+		for storing text
+		string is not a basic data type
+	}
+
+	casting 
+	{
+		convert between one data type and another.
+		casting might result in a significant loss of information 
+		c style cast: (type)var/val/exp
+		c++ style cast : 	static_cast<type> var/val/exp
+							const_cast<type>
+							dynamic_cast<type>
+							reinterpret_cast<type>
+	}
+	fix any warnings, always treat warnings as errors.
+}
+
+operators
+{
+	sizeof
+	{
+		get the size (in bytes) of a data type
+	}
+	mathematical operations
+	{
+		#include<cmath>
+	}
+	comparison operators
+	logical operators
+	bitwise operators
+	{
+		~ bit inversion
+		<< left shift
+		>> right shift
+		| bitwise or
+		& bitwise and
+		^ bitwise xor
+	}
+	assignment operator
+}
