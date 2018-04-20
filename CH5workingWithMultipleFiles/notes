@@ -1,0 +1,13 @@
+Boost: a general purpose C++ library 
+GSL : a scientific computing library
+QuantLib: a c++ library for mathematical finance.
+
+how a software project can evolve from simple beginnings to become large and sophisticated. 
+By seeing how a software project can be put together in stages you will learn how to develop your project in manageable pieces. 
+It will also show you how to refactor your code. 
+This simply means how to modify your code as you learn from experience to gradually improve your software design.
+
+
+header files: 
+
+first header file: matlib.h why ?
