@@ -8,6 +8,14 @@ It will also show you how to refactor your code.
 This simply means how to modify your code as you learn from experience to gradually improve your software design.
 
 
-header files: 
+how header files work:
 
-first header file: matlib.h why ?
+
+
+
+steps of coding a project
+
+declare functions in header files, 
+define declared function in a mock manner, 
+define declared function by requirement
+test it.

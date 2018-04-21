@@ -28,7 +28,41 @@ xxxx
 #endif
 
 */
-#pragma once
+
+/*
+	what should be in header file
+	* declaration of functions you wish to make available from your library.
+	* Declarations of global variables you wish to make available.
+	* Definitions of constant global variables.
+
+	where as your source file you should put:
+	* Definitions of functions declared in the header.
+	* Definitions of global variables missing from the header.
+
+
+	The reason why constants are treated differently is that the C++ compiler
+	can “inline” them. This means to replace every use of the constant with the
+	actual value. This gives a slight performance boost. As a consequence, how-
+	ever, the definition needs to be in the header, so that every file knows the
+	correct value to inline.
+
+	This is called a linker error. The phrase “unresolved external” is an unhelpful
+	way of saying that either:
+	(i) you forgot the definition altogether;
+	(ii) the type information in the definition doesn’t exactly match the type
+	information in the declaration;
+	(iii) you haven’t installed a library correctly;
+	(iv) some more subtle problem has happened. For example, on Visual Studio
+	you need to check whether the cpp file is actually listed under "Source
+	Files" in your project.
+
+
+*/
+//#pragma once
+
+
+#ifndef MATLIB_H_
+#define MATLIB_H_
 
 const double PI = 3.14159265358979;
 
@@ -43,3 +77,5 @@ double normcdf(double x);
  * computes the inverse of normcdf
  */
 double norminv(double x);
+
+#endif
