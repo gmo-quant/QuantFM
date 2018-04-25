@@ -10,7 +10,30 @@ This simply means how to modify your code as you learn from experience to gradua
 
 how header files work:
 
+information hiding:
+You shouldn’t declare all your functions in your header files. You should
+only declare the functions you want other people to use.
+It is good practice to write lots of small helper functions. However, making
+these part of your library is confusing for users of your library. Your users will
+see the .h files you write as containing the definition of what your library
+does. By limiting the amount of information in this file, you make life easier
+on your users.
+It also gives some other advantages. The moment you have released a
+function as part of a library you can never change it except to fix bugs! This
+is because someone else might already be using it. The less you give away
+in your header file, the less potential there is to write functions you have to
+spend the next ten years supporting.
 
+You should try to use the static keyword on all variables and functions
+that are not in your header file
+
+By marking this function as static we are saying it can only be used in
+the current source file. This means that we can reuse the name in other source
+files if desired. It is technically possible (but unlikely) for someone to use a
+function defined in another file without declaring it in a header file. Using the
+keyword static prevents this trick altogether
+
+inliine
 
 
 steps of coding a project

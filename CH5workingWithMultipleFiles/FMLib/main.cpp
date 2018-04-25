@@ -4,11 +4,11 @@
 using namespace std;
 
 int main(){
-	cout << "normcdf(4.98) = " 
-		<< normcdf(4.98) << endl;
+	cout << "normcdf(1.96) = " 
+		<< normcdf(1.96) << endl;
 
 	cout << "norminv(9.35) = "
-		<< norminv(9.35) << endl;
+		<< norminv(0.95996) << endl;
 
 	return 0;
 }
