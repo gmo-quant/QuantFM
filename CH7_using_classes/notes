@@ -192,3 +192,13 @@ string s1 = ss.str();
 
 writing a pie chart
 produce the data for a chart in c++ and then use an external program to produce the chart itself.
+
+coding: write code in a given language
+
+software design: design functions and data types in that language to produce convenient and useful libraries;
+
+software architecture: write systems using multiple computers and languages to create a useful end product.
+
+a good architecture can make all the difference to the success of your application.
+
+a good software developer will be willing to use multiple interacting programs and multiple languages to achieve their goals.
