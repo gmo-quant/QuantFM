@@ -44,7 +44,7 @@ static inline double hornerFunction( double x, double a0, double a1, double a2, 
  *  function as it makes the use of horner's method obvious.
  */
 double normcdf( double x ) {
-    DEBUG_PRINT( "normcdf("<<x<<")");
+  DEBUG_PRINT( "normcdf("<<x<<")");
   if (x<0) {
     return 1-normcdf(-x);
   }
@@ -77,11 +77,11 @@ static const double c8 = 0.0000003960315187;
 
 double norminv( double x ) {
   // We use Moro's algorithm
-    DEBUG_PRINT( "norminv(" << x <<")" );
+  DEBUG_PRINT( "norminv(" << x <<")" );
   double y = x - 0.5;
   if (y<0.42 && y>-0.42) {
     double r = y*y;
-        DEBUG_PRINT( "Case 1, r=" << r );
+    DEBUG_PRINT( "Case 1, r=" << r );
     return y*hornerFunction(r,a0,a1,a2,a3)/hornerFunction(r,1.0,b1,b2,b3,b4);
   } else {
     double r;
@@ -90,7 +90,7 @@ double norminv( double x ) {
     } else {
       r = 1.0 - x;
     }
-        DEBUG_PRINT( "Case 2, r=" << r);
+    DEBUG_PRINT( "Case 2, r=" << r);
     double s = log( -log( r ));
     double t = hornerFunction(s,c0,c1,c2,c3,c4,c5,c6,c7,c8);
     if (x>0.5) {

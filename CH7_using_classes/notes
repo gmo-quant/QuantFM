@@ -1,0 +1,194 @@
+#include <string> to use strings.
+#include <sstream> to use strings efficiently.
+#include <vector> to work with vectors.
+#include <fstream> to work with files.
+
+There is no built-in type for matrices in C++.
+
+vectors, mathematical vector, column of matrix, array
+
+// create a vector
+vector<double> myVector;
+vecotr<int> threeInts({2, 3, 5});
+
+// add three elements to the end
+myVector.push_back(1.0);
+myVector.push_back(1.3);
+myVector.push_back(4.5);
+
+// read the first, second and third elements
+cout << myVector[0] << endl;
+cout << myVector[1] << endl;
+cout << myVector[2] << endl;
+
+// change the values of a vector
+myVector[0] = 3.0;
+
+// loop through a vector
+int n = myVector.size();
+for (int i = 0; i < n; i++){
+	cout << myVector[i] << endl;
+}
+
+member functions of the vector(class)
+
+
+member function is a function that "belongs" to the class itself and performs functionality specific to that class.
+
+objects gather together data and functions for working with that data. 
+
+• We can initialise one to be of a certain size and with certain fixed values.
+• We can initialise a vector to be a copy of another vector.
+• We can replace the contents of one vector with the contents of another
+vector.
+
+// create a vector of length 10
+// consisting entirely 0f 3.0's
+vector<double> ten3s(10, 3.0);
+
+// create a vector which is a copy of another.
+vector<double> copy(ten3s);
+ASSERT(ten3s.size() == copy.size());
+
+// replace it with myVecotr
+copy=myVecotr;
+ASSERT(myVecotr.size() == copy.size());
+
+** pass by reference and const
+
+// when you write a function that takes a vector parameter, you should write it like this:
+double	sum(const vector<double>& v){
+	double total = 0.0;
+	int n = v.size();
+	for (int i = 0; i < n; i++){
+		total += v[i];
+	}
+	return total;
+}
+
+** pass by reference,
+usually, when you call a function ordinarily, a copy is made of your data and that copy is passed to the function. 
+the original variable remains unchanged when the copy is changed.
+
+functions with/ without side effects
+
+when to use pass by reference(&)
+when passing objects, pass them by reference as your default choice. 
+when passing the primitive data types double, int, and bool, pass by value is perhaps quicker, so for these data types it is conventional to use pass by value.
+
+** the const keyword
+
+when you pass a parameter as a const parameter, this means that the function you are calling is not allowd to change the value of the parameter. 
+
+the compiler will check your functions to make sure they don't have any side effects.
+
+use const consistently or don't use it at all. 
+
+pass by reference without const
+pass by reference without the const keyword can lead to unwanted side effects. Nevertheless, there are times when you actually want a function to change its parameters.
+
+one example is that C++ does not allow you to return multiple values, you can use pass by reference to get round this.
+
+void polarToCartesian(double r, double thetha, double& x, double& y){
+	x = r * cos(thetha);
+	y = r * sin(thetha);
+}
+
+static void testPolarToCartesian(){
+	double r = 2.0;
+	double thetha = PI/2;
+	double x = 0.0, y = 0.0;
+	polarToCartesian(r, thetha, x, y);
+	ASSERT_APPROX_EQUAL(X, 0.0, 0.001);
+	ASSERT_APPROX_EQUAL(y, 2.0, 0.001);
+}
+
+* using oftream
+"output file stream"
+"output stream" is a general term for somewhere you can write data.
+
+you can write data to a file, to the screen, to a printer, over the internet, etc. 
+
+// create an ofstream
+ofsteam out;
+// choose where to wirte;
+out.open("myfile.txt");
+out << "the first lien " << endl;
+out << "the second line" << endl;
+out << "the third line" << endl;
+
+// always close when you are finished
+out.close();
+
+you must call close because c++ performs some "buffering", which means your data might not actually be written until you call close. 
+
+buffering is a common performance enhancement that is used whne writing data to networks and files. 
+
+in addition, calling close indicates to other programs you are running that you are no longer tyring to write to the file -- you normally want to prevent two different programs trying to write to the same file.
+
+when passing round an ofstream, pass a refence to an ostream. 
+
+
+void writeHaiku(ostream& out){
+	out << "the wren" << endl;
+	out << "earns his living" << endl;
+	out << "noiselessly" << endl;
+}
+
+
+void testWriteHaiku(){
+	// write a haiku to cout
+	writeHaiku(cout);
+	// write a haiku to a file
+	ofstream out;
+	out.open("haiku.txt");
+	writeHaiku(out);
+	out.close();
+}
+
+working with string
+the string class allows you to manipulate character data conveniently. 
+
+// create a string
+string s("some text");
+// write it to a stream
+cout << s << endl;
+cout << s.size() <<	endl;
+// change it
+s.insert( 5, "more ");
+cout << s << endl;
+
+// append to it with +
+
+// Test equality
+ASSERT( s == "some more text");
+
+you should pass string objects using a const reference for efficiency.
+
+when you write some text in double quotation marks, this doesn't actually create an object of type string. it creates data of type char*. this means " a pointer to a memory address containing a sequence of characters" you need to tell C++ that you want to convert this to a string. 
+
+the key difference is that a char* consists only of the data. A string combines the data and a number of helpful functions into a single package. 
+
+// it makes no sense
+int a = "Quick brown fox". size();
+// you must first convert the raw data into a string object
+string s("Quick brown fox");
+int a = s.size();
+
+build strings efficiently
+// using + to build up strings by adding to the end of them is rather slow. avoid code like this:
+string s("");
+for (int i = 0; i < 100; i++){
+	s += "blah ";
+}
+// by constantly resizing the string objects we waste computer efforts. Instead it is better to write to a stringstream. a stringstream is an output stream that stores the characters that you write.
+
+stringstream ss;
+for (int i = 0; i < 100; i++){
+	ss << "hblah ";
+}
+string s1 = ss.str();
+
+
+writing a pie chart
+produce the data for a chart in c++ and then use an external program to produce the chart itself.
