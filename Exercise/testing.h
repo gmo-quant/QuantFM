@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <cassert>
 
+
+
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"      /* Black */
 #define RED     "\033[31m"      /* Red */
@@ -41,7 +43,7 @@ void setDebugEnabled( bool enabled );
         f(); \
     } catch (exception& e) { \
         std::cerr<<"\n"; \
-        std::cerr<<"******* "<<#f<<"()" << RED" FAILED."RESET << " ********\n";\
+        std::cerr<<RED"******* "<<#f<<"() FAILED. ********\n"RESET;\
         cerr << "Caught: " << e.what( ) << endl;  \
         cerr << "Type: " << typeid( e ).name( ) << endl;  \
         std::cerr<<"\n"; \
@@ -88,22 +90,22 @@ void setDebugEnabled( bool enabled );
 #define ASSERT( c ) do { \
     if (!(c)) { \
         std::stringstream testing_ss_; \
-		testing_ss_ << "ASSERTION FAILED \n"; \
-		testing_ss_ << __FILE__ << ":" << __LINE__ << ":\n" << #c; \
-		std::cerr << testing_ss_.str(); \
-		throw std::runtime_error(testing_ss_.str()); \
+        testing_ss_ << "ASSERTION FAILED \n"; \
+        testing_ss_ << __FILE__ << ":" << __LINE__ << ":\n" << #c; \
+        std::cerr << testing_ss_.str(); \
+        throw std::runtime_error(testing_ss_.str()); \
     } \
 } while (false)
 
 #define ASSERT_APPROX_EQUAL( x, y, tolerance ) do {\
     if (!(fabs((x)-(y))<=(tolerance))) { \
-		std::stringstream testing_ss_; \
-		testing_ss_ << "ASSERTION FAILED \n"; \
-		testing_ss_ << "Expected " << (x) << "\n"; \
-		testing_ss_ << "Actual " << (y) << "\n"; \
-		testing_ss_ << __FILE__ << ":" << __LINE__ << ":\n"; \
-		std::cerr << testing_ss_.str(); \
-		throw std::runtime_error(testing_ss_.str()); \
+        std::stringstream testing_ss_; \
+        testing_ss_ << "ASSERTION FAILED \n"; \
+        testing_ss_ << "Expected " << (x) << "\n"; \
+        testing_ss_ << "Actual " << (y) << "\n"; \
+        testing_ss_ << __FILE__ << ":" << __LINE__ << ":\n"; \
+        std::cerr << testing_ss_.str(); \
+        throw std::runtime_error(testing_ss_.str()); \
     } \
 } while (false)
 

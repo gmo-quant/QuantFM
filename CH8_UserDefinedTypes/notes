@@ -1,0 +1,49 @@
+• Every variable in C++ has a type (for example, double).
+• You can have lots of variables of a given type.
+
+• Every object in C++ has a class.
+• You can have lots of instances of the same class.
+
+The term object in object-oriented programming refers to a data type which consists of a bundle of data together with helpful functions to work with that data.
+
+You can choose whether to put a class declaration in a .h file or a .cpp file. If you want it to be part of your library, you put it in the header file. If you are using it to implement your library but don’t want anyone else to use it, you put it in the .cpp file.
+
+class CLASS_NAME {
+public:
+	DATA AND FUNCTION DECLARATIONS
+private:
+	DATA AND FUNCTION DECLARATIONS
+};
+
+The data and functions you declare in the section marked public: will be available to users of your library. The data and functions marked as private: are not available to users of your library. This allows you to hide information  about how your class works. This will make your library easier to use and maintain.
+
+use const on member functions if it doesn't change the object.
+
+recommendations on writing classes
+
+1) Whenever possible, don’t put class declarations in header files, put them in cpp files. This follows from the general principle that you should try to hide information if possible.
+
+2) If you decide to put a class in a header file, define only one class in each header file.
+3) Name that class the same as the header file.
+4) Give classes names that are nouns: for example artesianPoint or Black-ScholesModel.
+5) Use upper case for the first letter of a class name.
+
+it is considered good programming style to make all member variables private on your classes. doing this allows you to guarantee that your object always remains in a consistent state. In addition it allows you to change your mind in the future about the implementation details without users of your class being affected in anyway.
+
+In summary, the private keyword allows you to perform more sophisticated information hiding than just choosing what to put in the header file.
+
+Not putting a class in a header file gives even more information hiding than making things private, so that should always be your first choice. However, if you have to make the class available to users of your library, you should try to make all its data, and as many of its member functions as possible, private.
+
+The word encapsulation really refers to two things:
+(i) the bundling together of related items into a single object;
+(ii) preventing direct messing with the internal data of an object.
+
+initialization list:
+Point::Point(): x(0.0), y(0.0){}
+
+CLASS_NAME::CLASS_NAME( PARAMETER_LIST) :
+INITIALISATION_LIST {
+... NORMAL CODE ...
+}
+
+using an initialization list is faster, because calling the default constructor and then performing assignment will be slower than using the riht value the first time. 

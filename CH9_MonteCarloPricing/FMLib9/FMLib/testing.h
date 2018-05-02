@@ -6,25 +6,6 @@
 #include <stdlib.h>
 #include <cassert>
 
-#define RESET   "\033[0m"
-#define BLACK   "\033[30m"      /* Black */
-#define RED     "\033[31m"      /* Red */
-#define GREEN   "\033[32m"      /* Green */
-#define YELLOW  "\033[33m"      /* Yellow */
-#define BLUE    "\033[34m"      /* Blue */
-#define MAGENTA "\033[35m"      /* Magenta */
-#define CYAN    "\033[36m"      /* Cyan */
-#define WHITE   "\033[37m"      /* White */
-#define BOLDBLACK   "\033[1m\033[30m"      /* Bold Black */
-#define BOLDRED     "\033[1m\033[31m"      /* Bold Red */
-#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
-#define BOLDYELLOW  "\033[1m\033[33m"      /* Bold Yellow */
-#define BOLDBLUE    "\033[1m\033[34m"      /* Bold Blue */
-#define BOLDMAGENTA "\033[1m\033[35m"      /* Bold Magenta */
-#define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
-#define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
-
-
 /*  Is debugging currently enabled */
 bool isDebugEnabled();
 /*  Enabled/disable debug */
@@ -39,15 +20,13 @@ void setDebugEnabled( bool enabled );
     std::cerr<<"Calling "<<#f<<"()\n"; \
     try { \
         f(); \
-    } catch (exception& e) { \
+    } catch (...) { \
         std::cerr<<"\n"; \
-        std::cerr<<"******* "<<#f<<"()" << RED" FAILED."RESET << " ********\n";\
-        cerr << "Caught: " << e.what( ) << endl;  \
-        cerr << "Type: " << typeid( e ).name( ) << endl;  \
+        std::cerr<<"******* "<<#f<<"() FAILED. ********\n";\
         std::cerr<<"\n"; \
         exit(1); \
     }\
-    std::cerr<<""<<#f<<"()" << GREEN" passed.\n"RESET; \
+    std::cerr<<""<<#f<<"() passed.\n"; \
     std::cerr<<"\n"; \
 } while (false)
 
@@ -73,8 +52,8 @@ void setDebugEnabled( bool enabled );
 #ifndef DEBUG_MODE
 
 #define DEBUG_PRINT( A )
-#define ASSERT( c ) do {} while (false)
-#define ASSERT_APPROX_EQUAL( x, y, tolerance ) do {} while (false)
+#define ASSERT( c ) do {} while (0)
+#define ASSERT_APPROX_EQUAL( x, y, tolerance ) do {} while (0)
 
 
 #else

@@ -39,11 +39,9 @@ void setDebugEnabled( bool enabled );
     std::cerr<<"Calling "<<#f<<"()\n"; \
     try { \
         f(); \
-    } catch (exception& e) { \
+    } catch (...) { \
         std::cerr<<"\n"; \
         std::cerr<<"******* "<<#f<<"()" << RED" FAILED."RESET << " ********\n";\
-        cerr << "Caught: " << e.what( ) << endl;  \
-        cerr << "Type: " << typeid( e ).name( ) << endl;  \
         std::cerr<<"\n"; \
         exit(1); \
     }\
