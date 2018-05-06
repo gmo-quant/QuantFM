@@ -101,8 +101,8 @@ void setDebugEnabled( bool enabled );
     if (!(fabs((x)-(y))<=(tolerance))) { \
         std::stringstream testing_ss_; \
         testing_ss_ << "ASSERTION FAILED \n"; \
-        testing_ss_ << "Expected " << (x) << "\n"; \
-        testing_ss_ << "Actual " << (y) << "\n"; \
+        testing_ss_ << "Expected " << (y) << "\n"; \
+        testing_ss_ << "Actual " << (x) << "\n"; \
         testing_ss_ << __FILE__ << ":" << __LINE__ << ":\n"; \
         std::cerr << testing_ss_.str(); \
         throw std::runtime_error(testing_ss_.str()); \

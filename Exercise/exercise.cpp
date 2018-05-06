@@ -78,6 +78,9 @@ static inline double hornerFunction(double x, double a0, double a1, double a2, d
 static inline double hornerFunction(double x, double a0, double a1, double a2, double a3, double a4, double a5, double a6, double a7){
 	return a0 + x * hornerFunction(x, a1, a2, a3, a4, a5, a6, a7);
 }
+static inline double hornerFunction(double x, double a0, double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8){
+	return a0 + x * hornerFunction(x, a1, a2, a3, a4, a5, a6, a7, a8);
+}
 double normcdf(double x){
 	DEBUG_PRINT("normcdf(" << x << ")");
 	if (x < 0 ){
@@ -110,34 +113,87 @@ static const double c6 = 0.0000321767881768;
 static const double c7 = 0.0000002888167364;
 static const double c8 = 0.0000003960315187;
 
-double norminv(double x){
+double norminv(double x, bool checkRange = true){
 	DEBUG_PRINT( "norminv(" << x << ")");
-	 double y = x- 0.5;
-	 if ( y < 0.42 && y > -0.42){
-	 	double r = y * y;
-	 	DEBUG_PRINT("Case 1, r = " << r);
-	 	return y * hornerFunction( r , a0, a1, a2, a3) / hornerFunction(r, 1.0, b1, b2, b3, b4);
-	 }else{
-	 	double r = 0.0;
-	 	if (y < 0.0){
-	 		r = x;
-	 	}else{
-	 		r = 1 - x;
-	 	}
-	 	DEBUG_PRINT("Case 2, r = " << r);
- 	    double s = log( -log( r ));
-    	double t = hornerFunction(s,c0,c1,c2,c3,c4,c5,c6,c7,c8);
-    	if (x > 0.5){
-    		return t;
-    	}else{
-    		return -t;
-    	}
-	 }
+
+	if (checkRange && ( x < 0 || x > 1.0 ) ){
+		throw logic_error("parameter x is out of range for norminv. it should be between 0 an d 1");
+	}
+	double y = x- 0.5;
+	if ( y < 0.42 && y > -0.42){
+		double r = y * y;
+		DEBUG_PRINT("Case 1, r = " << r);
+		return y * hornerFunction( r , a0, a1, a2, a3) / hornerFunction(r, 1.0, b1, b2, b3, b4);
+	}else{
+		double r = 0.0;
+		if (y < 0.0){
+			r = x;
+		}else{
+			r = 1 - x;
+		}
+		DEBUG_PRINT("Case 2, r = " << r);
+	    double s = log( -log( r ));
+		double t = hornerFunction(s,c0,c1,c2,c3,c4,c5,c6,c7,c8);
+		if (x > 0.5){
+			return t;
+		}else{
+			return -t;
+		}
+	}
 }
 
 
-double blackScholesCallPrice(){
-	
+/* 
+
+Black-Scholes is a pricing model used to determine the fair price or theoretical value for a call or a put option based on six variables such as volatility, type of option, underlying stock price, time, strike price, and risk-free rate. 
+The quantum of speculation is more in case of stock market derivatives, and hence proper pricing of options eliminates the opportunity for any arbitrage.
+*/
+
+double blackScholesCallPrice(double strike, double time2Maturity, double spot, double volatility, double risk_free_rate){
+	double numerator = log(spot/strike) + (risk_free_rate + volatility * volatility * 0.5 ) * time2Maturity;
+	double denominator = volatility * sqrt(time2Maturity);
+	double d1 = numerator / denominator ;
+	double d2 = d1 - denominator ;
+	double t1 = normcdf(d1) * spot;
+	double t2 = normcdf(d2) * strike * exp( - risk_free_rate * time2Maturity);
+	return t1 - t2;
+}
+
+/*
+ * 4.8.2
+ * integrateSin, use rectange rule approximation
+ */
+double integrateSin(double a, double b, int N){
+	double h = (b - a)/N;
+	// double x = 0.0;
+	// double f = 0.0;
+	double total = 0.0;
+	for (int i = 0; i< N; i++){
+		double x = a +(i+0.5) * h;
+		double f = sin(x);
+		total += f;
+	}
+	return total/N;
+}
+
+/*
+ * 4.8.3
+ * infiniteIntegral, 
+ */
+
+double infiniteIntegral(double x){
+	double a = 0;
+	double b = 1;
+	int N = 1000;
+	double h = ( b - a) / N;
+	double total = 0.0;
+	for (int i =0; i < N; i++){
+		double s = (i + 0.5) * h + a;
+		double t = x + 1 - 1/s;
+		double f = pow(s, -2) * exp( -0.5 * t * t); 
+		total += f;
+	}
+	return total/N;
 }
 ///////////////////////////////////
 //
@@ -175,6 +231,28 @@ static void testNorminv(){
 	ASSERT_APPROX_EQUAL(norminv(0.975), 1.96, 0.01);
 }
 
+static void testBlackScholesCallPrice(){
+	double strike = 100.0;
+    double spot = 110.0;
+    double vol = 0.1;
+    double riskFreeRate = 0.03;
+    double timeToMaturity = 0.5;
+    cout << "\nExercise8\n";
+    cout << "The call price calculated is ";
+    cout << blackScholesCallPrice( strike, timeToMaturity, spot, vol, riskFreeRate );
+    cout << "\nExpected the value 11.677\n";
+}
+
+
+static void testIntegrateSin(){
+
+	// why the actual result is half of the expected one?
+	ASSERT_APPROX_EQUAL( integrateSin(1, 3, 100) , 1.53, 0.01);
+}
+
+static void testInfiniteIntegral(){
+	ASSERT_APPROX_EQUAL( infiniteIntegral(1.96), 0.975 * sqrt(2 * PI), 0.01);
+}
 void testExercise(){
 	setDebugEnabled(true);
 	TEST(testSum);
@@ -182,5 +260,9 @@ void testExercise(){
 	TEST(testFibonacci);
 	TEST(testNormcdf);
 	TEST(testHornerFunction);
-	TEST( testNorminv );
+	TEST(testNorminv);
+	TEST(testBlackScholesCallPrice);
+	TEST(testInfiniteIntegral);
+	TEST(testIntegrateSin);
+	
 }

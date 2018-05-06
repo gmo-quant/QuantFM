@@ -29,6 +29,31 @@ int fibonacci(int n);
 
 double normcdf(double x);
 
+/*
+ * 3.9.8
+ * option pricing, using black scholes method
+ */
+
+double blackScholesCallPrice(double strike, double time2Maturity, double spot, double volatility, double risk_free_rate);
+
+/*
+ * 4.8.2
+ * integrateSin
+ */
+double integrateSin(double a, double b, int N);
+
+
+/*
+ * 4.8.3
+ * infiniteIntegral
+ */
+double infiniteIntegral(double x);
+
+
+/*
+ * 7.7.1
+ * 
+ */
 
 
 void testExercise();
